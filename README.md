@@ -1,15 +1,31 @@
 
+create a network
+
+```
+docker network create luna-network
+```
+
 
 run mongo:
 
 ```
-docker run --name luna-mongo -d mongo
+docker run -d --network luna-network --name luna-mongo comics/centos-mongodb mongod
+docker exec -it luna-mongo mongo
+>use admin
+db.createUser(
+  {
+    user: "luna",
+    pwd: "luna",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+) 
 ```
 
 run luna:
 
 ```
-docker run -it  --name luna --link luna-mongo  bigr.bios.cf.ac.uk:4567/comics/luna bash
+docker run -it  --name luna --network luna-network  bigr.bios.cf.ac.uk:4567/comics/luna bash
+## at some point we will need bind to host ports to allow PXE booting
 ```
 
 Once inside the luna container, create a new CentOS image:
@@ -46,3 +62,8 @@ luna cluster init --frontend_address 10.30.255.254
 .
 .
 ```
+
+...more to follow:
+  (named is not yet dealt with)
+
+

@@ -12,13 +12,13 @@ touch /etc/named.luna.zones
 echo "starting nginx..."
 nginx &> /dev/null &
 
-echo "starting mongod..."
-mongod &> /dev/null &
+#echo "starting mongod..."
+#mongod &> /dev/null &
 
-echo "starting named..."
-named &> /dev/null &
+#echo "starting named..."
+#named &> /dev/null &
 
-echo "starting xinetd..."
-xinetd &> /dev/null &
+#echo "starting xinetd..."
+#xinetd &> /dev/null &
 
 /usr/local/bin/user_entrypoint.sh "$@"
