@@ -1,4 +1,3 @@
-
 create a network
 
 ```
@@ -24,7 +23,7 @@ db.createUser(
 run luna:
 
 ```
-docker run -it  --name luna --network luna-network  bigr.bios.cf.ac.uk:4567/comics/luna bash
+docker run -it  --name luna --network luna-network  comics/luna bash
 ## at some point we will need bind to host ports to allow PXE booting
 ```
 
