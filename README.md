@@ -1,4 +1,3 @@
-
 create a network
 
 ```
@@ -24,7 +23,7 @@ db.createUser(
 run luna:
 
 ```
-docker run -it  --name luna --network luna-network  bigr.bios.cf.ac.uk:4567/comics/luna bash
+docker run -it  --name luna --network luna-network  comics/luna bash
 ## at some point we will need bind to host ports to allow PXE booting
 ```
 
@@ -48,8 +47,9 @@ Set up sshd, paswordless access and password for the root user in osimage
 mkdir -p ${OSIMAGE_PATH}/root/.ssh
 chmod 700 ${OSIMAGE_PATH}/root/.ssh
 ssh-keygen -f ${OSIMAGE_PATH}/etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
+ssh-keygen -f ${OSIMAGE_PATH}/root/.ssh/id_rsa -N '' -t rsa
 echo "root:`openssl passwd -1`" | chpasswd -e -R ${OSIMAGE_PATH}
-cat /root/.ssh/id_rsa.pub >> ${OSIMAGE_PATH}/root/.ssh/authorized_keys
+cat  ${OSIMAGE_PATH}/root/.ssh/id_rsa.pub >> ${OSIMAGE_PATH}/root/.ssh/authorized_keys
 chmod 600 ${OSIMAGE_PATH}/root/.ssh/authorized_keys
 ```
 
