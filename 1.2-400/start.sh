@@ -15,8 +15,8 @@ nginx &> /dev/null &
 #echo "starting mongod..."
 #mongod &> /dev/null &
 
-#echo "starting named..."
-#named &> /dev/null &
+echo "starting named..."
+/usr/sbin/named -u named -c /etc/named.conf &
 
 #echo "starting xinetd..."
 #xinetd &> /dev/null &

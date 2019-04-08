@@ -11,6 +11,7 @@ MAINTAINER Ian Merrick <MerrickI@Cardiff.ac.uk>
 ENV  APP_NAME=luna
 ENV  VERSION=v1.2-400
 
+## luna
 RUN  yum install -y \ 
        boost-devel \
        gcc-c++ \
@@ -22,7 +23,7 @@ RUN  yum install -y \
        rpm-build \
        selinux-policy-devel \
        wget && \
-     yum clean all ; \
+     yum clean all && \
      rm -rf /var/cache/yum 
 RUN  git clone https://github.com/clustervision/luna && \
      cd luna && \
@@ -34,6 +35,15 @@ RUN  git clone https://github.com/clustervision/luna && \
      rm -rf /root/rpmbuild && \
      yum install -y rpm/RPMS/x86_64/luna-[0-9]*rpm 
 COPY luna.conf /etc/luna.conf    
+
+## named
+RUN  yum install -y \
+       bind \
+       bind-chroot \
+       bind-util && \
+     yum clean all && \
+     rm -rf /var/cache/yum
+COPY named.conf /etc/named.conf
 
 COPY start.sh /usr/local/bin/start.sh
 ENTRYPOINT ["/usr/local/bin/start.sh"]
