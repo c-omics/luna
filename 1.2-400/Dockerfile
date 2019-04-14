@@ -40,7 +40,7 @@ COPY luna.conf /etc/luna.conf
 RUN  yum install -y \
        bind \
        bind-chroot \
-       bind-util && \
+       bind-utils && \
      yum clean all && \
      rm -rf /var/cache/yum
 COPY named.conf /etc/named.conf
